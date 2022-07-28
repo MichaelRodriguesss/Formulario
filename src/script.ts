@@ -80,10 +80,10 @@ function checkInputs() {
   }
 
   function isCpf(cpf: string): boolean {
-    var Soma: number;
-    var Resto: number;
-    var cpfValue: any = cpf;
-    var i: number = 0;
+    let Soma: number;
+    let Resto: number;
+    let cpfValue: any = cpf;
+    let i: number = 0;
     Soma = 0;
 
     if (cpf == "00000000000") return false;
