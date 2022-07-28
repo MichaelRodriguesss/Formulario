@@ -32,7 +32,7 @@ function checkInputs() {
     if (cpfValue === "") {
         setErrorFor(cpf, "Preencha esse campo");
     }
-    else if (!isCpf(cpfValue)) {
+    else if (!isCpf(cpf.value)) {
         setErrorFor(cpf, "CPF Inválido");
     }
     else {
@@ -58,12 +58,18 @@ function checkInputs() {
     }
     function setErrorFor(input, message) {
         var formControl = input.parentElement;
+        if (!formControl)
+            return;
         var small = formControl.querySelector("small");
+        if (!small)
+            return;
         small.innerText = message;
         formControl.className = "form-control error";
     }
     function setSuccessFor(input) {
         var formControl = input.parentElement;
+        if (!formControl)
+            return;
         formControl.className = "form-control success";
     }
     function isTelefone(telefone) {
@@ -72,7 +78,7 @@ function checkInputs() {
     function isCpf(cpf) {
         var Soma;
         var Resto;
-        var cpf = cpf.value;
+        var cpfValue = cpf;
         var i = 0;
         Soma = 0;
         if (cpf == "00000000000")
@@ -98,6 +104,6 @@ function checkInputs() {
         return /^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/.test(email);
     }
     function isCep(cep) {
-        return /^[0-9]{5}-[\d]{3}/.test(cep);
+        return /^[0-9]{8}$/.test(cep.replace(/-/g, ""));
     }
 }

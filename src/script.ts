@@ -34,7 +34,7 @@ function checkInputs() {
 
   if (cpfValue === "") {
     setErrorFor(cpf, "Preencha esse campo");
-  } else if (!isCpf(cpfValue)) {
+  } else if (!isCpf(cpf.value)) {
     setErrorFor(cpf, "CPF Inválido");
   } else {
     setSuccessFor(cpf);
@@ -56,31 +56,33 @@ function checkInputs() {
     setSuccessFor(cep);
   }
 
-  function setErrorFor(input, message) {
+  function setErrorFor(input: HTMLInputElement, message: string) {
     const formControl = input.parentElement;
+    if (!formControl) return;
     const small = formControl.querySelector("small");
-
+    if (!small) return;
     small.innerText = message;
 
     formControl.className = "form-control error";
   }
 
-  function setSuccessFor(input) {
+  function setSuccessFor(input: HTMLInputElement) {
     const formControl = input.parentElement;
+    if (!formControl) return;
 
     formControl.className = "form-control success";
   }
 
-  function isTelefone(telefone) {
+  function isTelefone(telefone: string): boolean {
     return /^(?:(?:\+|00)?(55)\s?)?(?:\(?([1-9][0-9])\)?\s?)(?:((?:9\d|[2-9])\d{3})\-?(\d{4}))$/.test(
       telefone
     );
   }
 
-  function isCpf(cpf): boolean {
+  function isCpf(cpf: string): boolean {
     var Soma: number;
     var Resto: number;
-    var cpf: any = cpf.value;
+    var cpfValue: any = cpf;
     var i: number = 0;
     Soma = 0;
 
@@ -103,13 +105,13 @@ function checkInputs() {
     return true;
   }
 
-  function isEmail(email) {
+  function isEmail(email: string): boolean {
     return /^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/.test(
       email
     );
   }
 
-  function isCep(cep): boolean {
-    return /^[0-9]{5}-[\d]{3}/.test(cep);
+  function isCep(cep: string): boolean {
+    return /^[0-9]{8}$/.test(cep.replace(/-/g, ""));
   }
 }
